@@ -12,12 +12,14 @@ let idCount = links.length
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    // 2
-    feed: () => links
+    allLinks: () => links,
+    getLink: (parent, args) => {
+    	const index = links.findIndex((link => link.id === args.id))
+    	return links[index]
+    }
   },
   Mutation: {
-    // 2
-    post: (parent, args) => {
+    createLink: (parent, args) => {
        const link = {
         id: `link-${idCount++}`,
         description: args.description,
@@ -25,6 +27,14 @@ const resolvers = {
       }
       links.push(link)
       return link
+    },
+    updateLink: (parent, args) => {
+    	const index = links.findIndex((link => link.id === args.id))
+
+			links[index].url = args.url ? args.url : links[index].url
+			links[index].description = args.description ? args.description : links[index].description
+
+    	return links[index]
     }
   },
 }
