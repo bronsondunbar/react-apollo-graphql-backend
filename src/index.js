@@ -35,6 +35,13 @@ const resolvers = {
 			links[index].description = args.description ? args.description : links[index].description
 
     	return links[index]
+    },
+    deleteLink: (parent, args) => {
+    	const index = links.findIndex((link => link.id === args.id))
+
+    	links.splice(index, 1)
+
+    	return links
     }
   },
 }
