@@ -9,8 +9,13 @@ enum LinkOrderByInput {
 
 type Query {
   info: String!
-  allLinks(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): [Link!]!
+  allLinks(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Links!
   getLink(id: ID!): Link
+}
+
+type Links {
+  links: [Link!]!
+  count: Int!
 }
 
 type Mutation {
